@@ -1,0 +1,37 @@
+[
+  {
+    "id": "gui.smalruby3.telemetryOptIn.label",
+    "description": "Smalruby 3 telemetry modal label - for accessibility",
+    "defaultMessage": "Report statistics to improve Smalruby"
+  },
+  {
+    "id": "gui.smalruby3.telemetryOptIn.body1",
+    "description": "First paragraph of body text for telemetry opt-in modal",
+    "defaultMessage": "The Smalruby Team is always looking to better understand how Smalruby is used around the world. To help support this effort, you can allow Smalruby to automatically send usage information to the Smalruby Team."
+  },
+  {
+    "id": "gui.smalruby3.telemetryOptIn.body2",
+    "description": "First paragraph of body text for telemetry opt-in modal",
+    "defaultMessage": "The information we collect includes language selection, blocks usage, and some events like saving, loading, and uploading a project. We DO NOT collect any personal information."
+  },
+  {
+    "id": "gui.telemetryOptIn.buttonTextNo",
+    "description": "Text for telemetry modal opt-out button",
+    "defaultMessage": "No, thanks"
+  },
+  {
+    "id": "gui.telemetryOptIn.buttonTooltipNo",
+    "description": "Tooltip for telemetry modal opt-out button",
+    "defaultMessage": "Disable telemetry"
+  },
+  {
+    "id": "gui.smalruby3.telemetryOptIn.buttonTextYes",
+    "description": "Text for telemetry modal opt-in button",
+    "defaultMessage": "Yes, I'd like to help improve Smalruby"
+  },
+  {
+    "id": "gui.telemetryOptIn.buttonTooltipYes",
+    "description": "Tooltip for telemetry modal opt-in button",
+    "defaultMessage": "Enable telemetry"
+  }
+]
