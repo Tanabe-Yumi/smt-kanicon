@@ -1,0 +1,117 @@
+[
+  {
+    "id": "gui.menuBar.confirmNewWithoutSaving",
+    "description": "message for prompting user to confirm that they want to create new project without saving",
+    "defaultMessage": "Replace contents of the current project?"
+  },
+  {
+    "id": "gui.menuBar.LanguageSelector",
+    "description": "accessibility text for the language selection menu",
+    "defaultMessage": "language selector"
+  },
+  {
+    "id": "gui.menuBar.tutorialsLibrary",
+    "description": "accessibility text for the tutorials button",
+    "defaultMessage": "Tutorials"
+  },
+  {
+    "id": "gui.menuBar.restoreSprite",
+    "description": "Menu bar item for restoring the last deleted sprite.",
+    "defaultMessage": "Restore Sprite"
+  },
+  {
+    "id": "gui.menuBar.restoreSound",
+    "description": "Menu bar item for restoring the last deleted sound.",
+    "defaultMessage": "Restore Sound"
+  },
+  {
+    "id": "gui.menuBar.restoreCostume",
+    "description": "Menu bar item for restoring the last deleted costume.",
+    "defaultMessage": "Restore Costume"
+  },
+  {
+    "id": "gui.menuBar.restore",
+    "description": "Menu bar item for restoring the last deleted item in its disabled state.",
+    "defaultMessage": "Restore"
+  },
+  {
+    "id": "gui.menuBar.saveNow",
+    "description": "Menu bar item for saving now",
+    "defaultMessage": "Save now"
+  },
+  {
+    "id": "gui.menuBar.saveAsCopy",
+    "description": "Menu bar item for saving as a copy",
+    "defaultMessage": "Save as a copy"
+  },
+  {
+    "id": "gui.menuBar.remix",
+    "description": "Menu bar item for remixing",
+    "defaultMessage": "Remix"
+  },
+  {
+    "id": "gui.menuBar.new",
+    "description": "Menu bar item for creating a new project",
+    "defaultMessage": "New"
+  },
+  {
+    "id": "gui.smalruby3.menuBar.generateRubyFromCode",
+    "description": "Menu bar item for generating ruby from code",
+    "defaultMessage": "Generate Ruby from Code"
+  },
+  {
+    "id": "gui.menuBar.file",
+    "description": "Text for file dropdown menu",
+    "defaultMessage": "File"
+  },
+  {
+    "id": "gui.menuBar.uploadFromComputer",
+    "description": "Menu bar item for uploading a project from your computer",
+    "defaultMessage": "Load from your computer"
+  },
+  {
+    "id": "gui.menuBar.downloadToComputer",
+    "description": "Menu bar item for downloading a project to your computer",
+    "defaultMessage": "Save to your computer"
+  },
+  {
+    "id": "gui.smalruby3.menuBar.downloadRubyCodeToComputer",
+    "description": "Menu bar item for downloading Ruby code to your computer",
+    "defaultMessage": "Save Ruby to your computer"
+  },
+  {
+    "id": "gui.smalruby3.menuBar.WriteRubyToMicrocomputer",
+    "description": "Menu bar item for writing Ruby code to microcomputer",
+    "defaultMessage": "Write Ruby to Microcomputer"
+  },
+  {
+    "id": "gui.menuBar.edit",
+    "description": "Text for edit dropdown menu",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "gui.menuBar.turboModeOff",
+    "description": "Menu bar item for turning off turbo mode",
+    "defaultMessage": "Turn off Turbo Mode"
+  },
+  {
+    "id": "gui.menuBar.turboModeOn",
+    "description": "Menu bar item for turning on turbo mode",
+    "defaultMessage": "Turn on Turbo Mode"
+  },
+  {
+    "id": "gui.menuBar.joinScratch",
+    "description": "Link for creating a Scratch account",
+    "defaultMessage": "Join Scratch"
+  },
+  {
+    "id": "gui.menuBar.signIn",
+    "description": "Link for signing in to your Scratch account",
+    "defaultMessage": "Sign in"
+  },
+  {
+    "id": "gui.menuBar.giveFeedback",
+    "description": "Label for feedback form modal button",
+    "defaultMessage": "Give Feedback"
+  }
+]
