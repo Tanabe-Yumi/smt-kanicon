@@ -190,12 +190,6 @@ const VariablesConverter = {
     	console.log("in onvasgn - variable");
         if (scope === 'global' || scope === 'instance') {
             if (this._isNumberOrBlock(rh) || this._isStringOrBlock(rh)) {
-				console.log("scope: " + scope);
-				console.dir(rh);
-				console.dir(variable);
-				console.log("id: " + variable.id);
-				console.log("name: " + variable.name);
-				console.log("type: " + variable.type);
                 const block = this._createBlock('data_setvariableto', 'statement', {
                     fields: {
                         VARIABLE: {

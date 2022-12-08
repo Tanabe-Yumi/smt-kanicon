@@ -821,8 +821,8 @@ class RubyToBlocksConverter {
     _onSend (node, rubyBlockArgsNode, rubyBlockNode) {
         const saved = this._saveContext();
 
-		console.log("in onsend()");
-		console.dir(node.children[0]);
+        console.log("in onsend()");
+        console.dir(nnode.children[0]);
 
         let receiver = this._process(node.children[0]);
         if (_.isArray(receiver) && receiver.length === 1) {
@@ -841,10 +841,10 @@ class RubyToBlocksConverter {
             rubyBlock = this._processStatement(rubyBlockNode);
         }
 
-		const variable = this._lookupOrCreateVariable(node.children[0]);	// kani robot
+        const variable = this._lookupOrCreateVariable(node.children[0]);
 
         // let block = this._callConvertersHandler('onSend', receiver, name, args, rubyBlockArgs, rubyBlock);
-        let block = this._callConvertersHandler('onSend', receiver, name, args, rubyBlockArgs, rubyBlock, variable);	// kani robot
+        let block = this._callConvertersHandler('onSend', receiver, name, args, rubyBlockArgs, rubyBlock, variable);  // kani robot
         if (!block) {
             if ((this._isSelf(receiver) || receiver === Opal.nil) && !rubyBlock) {
                 switch (name) {
