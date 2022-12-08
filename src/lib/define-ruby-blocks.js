@@ -1502,16 +1502,16 @@ export default function (ScratchBlocks) {
                 		type: 'field_dropdown',
                 		name: 'side',
                 		options: [
-                			['右', 'right'],	// ch1
-                			['左', 'left']	// ch2
+                			['右', '1'],	// ch1
+                			['左', '2']	    // ch2
                 		]
                 	},
                 	{
                 		type: 'field_dropdown',
                 		name: 'direction',
                 		options: [
-                			['前', 'front'],
-                			['後ろ', 'back']
+                			['前', 'on'],
+                			['後ろ', 'off']
                 		]
                 	}
                 ],
@@ -1730,8 +1730,8 @@ export default function (ScratchBlocks) {
                 		type: 'field_dropdown',
                 		name: 'direction',
                 		options: [
-                			['前', 'front'],
-                			['後ろ', 'back']
+                			['前', 'on'],
+                			['後ろ', 'off']
                 		]
                 	}
                 ],
