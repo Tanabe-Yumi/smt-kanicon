@@ -1502,7 +1502,7 @@ export default function (ScratchBlocks) {
                 		type: 'field_dropdown',
                 		name: 'side',
                 		options: [
-                            ['右', '1'],	// ch1
+                			['右', '1'],	// ch1
                 			['左', '2']	    // ch2
                 		]
                 	},
@@ -1510,7 +1510,7 @@ export default function (ScratchBlocks) {
                 		type: 'field_dropdown',
                 		name: 'direction',
                 		options: [
-                            ['前', 'on'],
+                			['前', 'on'],
                 			['後ろ', 'off']
                 		]
                 	}
@@ -1730,7 +1730,7 @@ export default function (ScratchBlocks) {
                 		type: 'field_dropdown',
                 		name: 'direction',
                 		options: [
-                            ['前', 'on'],
+                			['前', 'on'],
                 			['後ろ', 'off']
                 		]
                 	}
