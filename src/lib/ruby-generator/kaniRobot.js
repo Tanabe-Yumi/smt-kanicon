@@ -29,30 +29,9 @@ export default function (Generator) {
 		const side = Generator.getFieldValue(block, 'side') || null;
 		const direction = Generator.getFieldValue(block, 'direction') || null;
 		
-		// if(side === 'right') {
-		// 	if(direction === 'front') {
-		// 		return `m1_pwm.duty(500)\n` + 
-		// 			`m1.off()\n` + 
-		// 			`sleep(0.01)\n`;
-		// 	} else {
-		// 		return `m1_pwm.duty(500)\n` + 
-		// 			`m1.on()\n` + 
-		// 			`sleep(0.01)\n`;
-		// 	}
-		// } else {
-		// 	if(direction === 'front') {
-		// 		return `m2_pwm.duty(500)\n` + 
-		// 			`m2.on()\n` + 
-		// 			`sleep(0.01)\n`;
-		// 	} else {
-		// 		return `m2_pwm.duty(500)\n` + 
-		// 			`m2.off()\n` + 
-		// 			`sleep(0.01)\n`;
-		// 	}
-		// }
 		return `m${side}_pwm.duty(500)\n` + 
-					`m${side}.${direction}()\n` + 
-					`sleep(0.01)\n`;
+			`m${side}.${direction}()\n` + 
+			`sleep(0.01)\n`;
 	};
 	
 	Generator.kani_motor_stop_e = function (block) {
@@ -121,11 +100,6 @@ export default function (Generator) {
 		const pin = Generator.getFieldValue(block, 'ch') || null;
 		const direction = Generator.getFieldValue(block, 'direction') || null;
 		
-		// if(pin === '25') {
-		// 	return (direction === 'front'? `motor${pin}.off\n` : `motor${pin}.on\n`);
-		// } else {
-		// 	return (direction === 'front'? `motor${pin}.on\n` : `motor${pin}.off\n`);
-		// }
 		return `motor${pin}.${direction}\n`;
 	};
 	
