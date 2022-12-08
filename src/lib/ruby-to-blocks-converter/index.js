@@ -400,11 +400,11 @@ class RubyToBlocksConverter {
     }
 
     _createTextBlock (value) {
-        console.log("_createTextBlock");
+        // console.log("_createTextBlock");
         if (this._isString(value)) {
-            console.log("_createTextBlock: " + value.toString());
-            const b = this._createFieldBlock('text', 'TEXT', value.toString());
-            console.dir(b);
+            // console.log("_createTextBlock: " + value.toString());
+            // const b = this._createFieldBlock('text', 'TEXT', value.toString());
+            // console.dir(b);
             return this._createFieldBlock('text', 'TEXT', value.toString());
         }
         return value;
@@ -424,10 +424,10 @@ class RubyToBlocksConverter {
     }
 
     _createRubyStatementBlock (statement) {
-        console.log("_createRubyStatementBlock: " + statement);
+        // console.log("_createRubyStatementBlock: " + statement);
         const block = this._createBlock('ruby_statement', 'statement');
-        console.log("_createRubyStatementBlock: ");
-        console.dir(block);	// valueはない
+        // console.log("_createRubyStatementBlock: ");
+        // console.dir(block);	// valueはない
         this._addInput(block, 'STATEMENT', this._createTextBlock(statement));
         return block;
     }
@@ -443,9 +443,9 @@ class RubyToBlocksConverter {
     }
 
     _addInput (block, name, inputBlock, shadowBlock) {
-    console.log("inputBlock: ");
-    console.dir(inputBlock);
-    console.log("shadowBlock: " + shadowBlock);
+    // console.log("inputBlock: ");
+    // console.dir(inputBlock);
+    // console.log("shadowBlock: " + shadowBlock);
         if (!name) {
             name = inputBlock.id;
         }
@@ -462,8 +462,8 @@ class RubyToBlocksConverter {
             block: inputBlock.id,
             shadow: inputBlock.shadow ? inputBlock.id : shadowBlockId
         };
-        console.log("_addInput - last");
-        console.dir(block);
+        // console.log("_addInput - last");
+        // console.dir(block);
     }
 
     _addNumberInput (block, name, opcode, inputValue, shadowValue) {
@@ -475,14 +475,14 @@ class RubyToBlocksConverter {
     }
 
     _addTextInput (block, name, inputValue, shadowValue) {
-        console.log("in _addTextInput");
-        console.dir(block);
-        console.log("name: " + name);
-        console.dir(inputValue);
-        console.dir(shadowValue);
+        // console.log("in _addTextInput");
+        // console.dir(block);
+        // console.log("name: " + name);
+        // console.dir(inputValue);
+        // console.dir(shadowValue);
         let shadowBlock;
         if (!this._isString(inputValue)) {
-            console.log("in _addTextInput - if");
+            // console.log("in _addTextInput - if");
             shadowBlock = this._createTextBlock(shadowValue);
         }
         this._addInput(block, name, this._createTextBlock(inputValue), shadowBlock);
@@ -616,11 +616,6 @@ class RubyToBlocksConverter {
     _getSource (node) {
     	console.log("_getSource: ");
     	console.dir(node);
-    	//const str = node.location.expression.source_buffer.slice_source
-    	//console.log(str);
-    	//const pat = /^motorEn\s=\sGPIO.new\(12,\sGPIO::OUT\)$/;
-    	//console.log(pat.test(str));
-    	//console.log(str.match(pat));
         const expression = node.$loc().$expression();	// コメントアウトでエラーメッセージ
         if (expression === Opal.nil) {
             return '';
@@ -826,6 +821,9 @@ class RubyToBlocksConverter {
     _onSend (node, rubyBlockArgsNode, rubyBlockNode) {
         const saved = this._saveContext();
 
+        console.log("in onsend()");
+        console.dir(nnode.children[0]);
+
         let receiver = this._process(node.children[0]);
         if (_.isArray(receiver) && receiver.length === 1) {
             receiver = receiver[0];
@@ -843,7 +841,10 @@ class RubyToBlocksConverter {
             rubyBlock = this._processStatement(rubyBlockNode);
         }
 
-        let block = this._callConvertersHandler('onSend', receiver, name, args, rubyBlockArgs, rubyBlock);
+        const variable = this._lookupOrCreateVariable(node.children[0]);
+
+        // let block = this._callConvertersHandler('onSend', receiver, name, args, rubyBlockArgs, rubyBlock);
+        let block = this._callConvertersHandler('onSend', receiver, name, args, rubyBlockArgs, rubyBlock, variable);  // kani robot
         if (!block) {
             if ((this._isSelf(receiver) || receiver === Opal.nil) && !rubyBlock) {
                 switch (name) {
@@ -1078,7 +1079,8 @@ class RubyToBlocksConverter {
 
         const variable = this._lookupOrCreateVariable(node.children[0]);
         const rh = this._process(node.children[1]);
-        const code = node.location.expression.source_buffer.source.toString();
+        const code = node.location.expression.source_buffer.source.toString();	// kani robot
+        // let block = this._callConvertersHandler('onVasgn', scope, variable, rh);
         let block = this._callConvertersHandler('onVasgn', scope, variable, rh, code);
         if (!block) {
             this._restoreContext(saved);
