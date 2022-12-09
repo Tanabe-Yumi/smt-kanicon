@@ -37,11 +37,7 @@ export default function (Generator) {
 	Generator.kani_motor_stop_e = function (block) {
 		const side = Generator.getFieldValue(block, 'side') || null;
 		
-		if(side === 'right') {
-			return `m1_pwm.duty(0)\n`;
-		} else {
-			return `m2_pwm.duty(0)\n`;
-		}
+		return `m${side}_pwm.duty(0)\n`;
 	};
 	
 	Generator.kani_lux_init_e = function (block) {
