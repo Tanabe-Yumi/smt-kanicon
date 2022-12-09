@@ -8,6 +8,10 @@ const matchField = (field) => {
 		return 'motor25';
 	if(/motor32/.test(field))
 		return 'motor32';
+	if(/motor26_pwm/.test(field))
+		return 'motor26_pwm';
+	if(/motor33_pwm/.test(field))
+		return 'motor33_pwm';
 }
 /**
 * Kani Blocks Ruby converter
@@ -76,6 +80,22 @@ const KaniBlocksConverter = {
 				}
 			});
 			break;
+		case 'motor26_pwm':
+		case 'motor33_pwm':
+			if(name != 'duty')
+				break;
+			block = this._createBlock('kani_motor_speed_set_n', 'statement', {
+				fields: {
+					ch: {
+						name: 'ch',
+						id: variable.id,
+						value: parseInt(field.substring(field.length - 6, field.length - 4)),
+						variableType: '',
+					}
+				}
+			});
+			this._addTextInput(block, 'speed', this._isNumber(args[0]) ? args[0].toString() : args[0], '500');
+			break;
 		}
 		
 		return block;
@@ -88,11 +108,11 @@ const KaniBlocksConverter = {
 	},
 	onVasgn: function (scope, variable, rh, code) {
 		console.log("in onvasgn - kani");
-		console.log("scope: " + scope);
-		console.log("variable: ");
-		console.dir(variable);
-		console.log("rh: ");
-		console.dir(rh);
+		// console.log("scope: " + scope);
+		// console.log("variable: ");
+		// console.dir(variable);
+		// console.log("rh: ");
+		// console.dir(rh);
 		
 		let block;
 		let pat, pin;
