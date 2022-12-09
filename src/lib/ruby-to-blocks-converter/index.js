@@ -821,8 +821,8 @@ class RubyToBlocksConverter {
     _onSend (node, rubyBlockArgsNode, rubyBlockNode) {
         const saved = this._saveContext();
 
-        console.log("in onsend()");
-        console.dir(node.children[0]);
+        // console.log("in onsend()");
+        // console.dir(node.children[1]);
 
         let receiver = this._process(node.children[0]);
         if (_.isArray(receiver) && receiver.length === 1) {

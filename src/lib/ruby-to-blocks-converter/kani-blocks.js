@@ -1,6 +1,14 @@
 /* global Opal */
 import _ from 'lodash';
 
+const matchField = (field) => {
+	if(/motorEn/.test(field))
+		return 'motorEn';
+	if(/motor25/.test(field))
+		return 'motor25';
+	if(/motor32/.test(field))
+		return 'motor32';
+}
 /**
 * Kani Blocks Ruby converter
 */
@@ -9,54 +17,65 @@ const KaniBlocksConverter = {
 	onSend: function (receiver, name, args, rubyBlockArgs, rubyBlock, variable) {
 		console.log("in onsend - kani");
 		console.log("name: " + name);
-		console.log("args: ");
-		console.dir(args);
-		console.log("receiver: ");
-		console.dir(receiver);
+		// console.log("args: ");
+		// console.dir(args);
+		// console.log("receiver: ");
+		// console.dir(receiver);
 		// console.log("rubyblockargs: " + rubyBlockArgs);
 		// console.log("rubyblock: " + rubyBlock);
-		console.dir(variable);
+		// console.dir(variable);
 		
 		let block;
 		//if ((this._isSelf(receiver) || receiver === Opal.nil) && !rubyBlock) {
-		if (this._isSelf(receiver) || receiver === Opal.nil) {
-			// console.log("!rubyBlock in onSend");
-			switch (name) {
-			case 'motorEn':
-				console.log("in motorEn");
-				// if(args.length === 0){}
+		// if (this._isSelf(receiver) || receiver === Opal.nil) {
+		// 	// console.log("!rubyBlock in onSend");
+		// 	switch (name) {
+		// 	case 'motorEn':
+		// 		console.log("in motorEn");
+		// 		// if(args.length === 0){}
+		// 		break;
+		// 	default:
+		// 		console.log("in default");
+		// 		break;
+		// 	}
+		// }
+		let field = matchField(variable.name);
+		switch(field){
+		case 'motorEn':
+			if(name != 'on' && name != 'off')
 				break;
-			default:
-				console.log("in default");
-				break;
-			}
-		} else {
-			console.log("in else - onsend");
-			switch (name) {
-			case 'on':
-			case 'off':
-				console.log("in case on/off");
-				const pat = /motorEn/;
-				if(args.length === 0 && pat.test(variable.name)){
-					console.log("in args.length = 0");
-					console.dir(receiver.fields);
-					block = this._createBlock('kani_motor_enable_set_n', 'statement', {
-						fields: {
-							enable: {
-								name: 'enable',
-								id: variable.id,
-								value: name,
-								variableType: '',
-							}
-						}
-					});
-					console.dir(block);
+			block = this._createBlock('kani_motor_enable_set_n', 'statement', {
+				fields: {
+					enable: {
+						name: 'enable',
+						id: variable.id,
+						value: name,
+						variableType: '',
+					}
 				}
+			});
+			break;
+		case 'motor25':
+		case 'motor32':
+			if(name != 'on' && name != 'off')
 				break;
-			default:
-				console.log("in default");
-				break;
-			}
+			block = this._createBlock('kani_motor_direct_n', 'statement', {
+				fields: {
+					ch: {
+						name: 'ch',
+						id: variable.id,
+						value: parseInt(field.substring(field.length - 2)),
+						variableType: '',
+					},
+					direction: {
+						name: 'direction',
+						id: variable.id,
+						value: name,
+						variableType: '',
+					}
+				}
+			});
+			break;
 		}
 		
 		return block;
@@ -69,12 +88,11 @@ const KaniBlocksConverter = {
 	},
 	onVasgn: function (scope, variable, rh, code) {
 		console.log("in onvasgn - kani");
-		//console.log("scope: " + scope);
-		//console.log("variable: ");
-		//console.dir(variable);
-		//console.log("rh: ");
-		//console.dir(rh);
-		//console.log("name: " + name);
+		console.log("scope: " + scope);
+		console.log("variable: ");
+		console.dir(variable);
+		console.log("rh: ");
+		console.dir(rh);
 		
 		let block;
 		let pat, pin;
@@ -83,7 +101,7 @@ const KaniBlocksConverter = {
 		case 'motorEn':
 			//console.log("in motorEn");
 			pat = /motorEn\s*=\s*GPIO.new\(12,\s*GPIO::OUT\)/;
-			console.dir(pat);
+			// console.dir(pat);
 			//console.log("code: " + code);
 			//console.log("pat.test: " + pat.test(code));
 			if(pat.test(code)){
