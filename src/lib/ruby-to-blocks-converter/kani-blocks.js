@@ -77,7 +77,7 @@ const KaniBlocksConverter = {
 		//console.log("name: " + name);
 		
 		let block;
-		let pat;
+		let pat, pin;
 		console.log("variable.name: " + variable.name);
 		switch (variable.name) {
 		case 'motorEn':
@@ -92,14 +92,9 @@ const KaniBlocksConverter = {
 			break;
 		case 'motor25':
 		case 'motor32':
-			let pin = parseInt(variable.name.substr(-2));
-			// pat = /motor25\s*=\s*GPIO.new\(25,\s*GPIO::OUT\)/;
+			pin = parseInt(variable.name.substr(-2));
 			pat = new RegExp(variable.name + "\\s*=\\s*GPIO.new\\(" + pin + ",\\s*GPIO::OUT\\)");
-			console.dir(pat);
-			//console.log("code: " + code);
-			//console.log("pat.test: " + pat.test(code));
 			if(pat.test(code)){
-				// block = this._createBlock('kani_motor_init_n', 'statement');
 				block = this._createBlock('kani_motor_init_n', 'statement', {
 					fields: {
 						ch: {
@@ -110,9 +105,25 @@ const KaniBlocksConverter = {
 						}
 					}
 				});
-				console.dir(block);
 			}
 			break;
+			case 'motor26_pwm':
+			case 'motor33_pwm':
+				pin = parseInt(variable.name.substr(-6, 2));
+				pat = new RegExp(variable.name + "\\s*=\\s*PWM.new\\(" + pin + ",\\s*ch=" + (pin % 2) + "\\)");
+				if(pat.test(code)){
+					block = this._createBlock('kani_motor_speed_init_n', 'statement', {
+						fields: {
+							ch: {
+								name: 'ch',
+								id: variable.id,
+								value: pin,
+								variableType: '',
+							}
+						}
+					});
+				}
+				break;
 		default:
 			console.log("in default");
 			break;
