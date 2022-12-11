@@ -20,6 +20,10 @@ const matchField = (field) => {
 		return 'lightsensor35';
 	if(/lightsensor2/.test(field))
 		return 'lightsensor2';
+	if(/servo27/.test(field))
+		return 'servo27';
+	if(/servo14/.test(field))
+		return 'servo14';
 }
 /**
 * Kani Blocks Ruby converter
@@ -120,6 +124,22 @@ const KaniBlocksConverter = {
 					}
 				}
 			});
+			break;
+		case 'servo27':
+		case 'servo14':
+			if(name != 'freq')
+				break;
+			block = this._createBlock('kani_servo_freq_n', 'statement', {
+				fields: {
+					number: {
+						name: 'number',
+						id: variable.id,
+						value: parseInt(field.substring(field.length - 2, field.length)),
+						variableType: '',
+					}
+				}
+			});
+			this._addTextInput(block, 'freq', this._isNumber(args[0]) ? args[0].toString() : args[0], '50');
 			break;
 		}
 		
