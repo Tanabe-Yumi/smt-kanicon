@@ -145,23 +145,42 @@ const KaniBlocksConverter = {
 				});
 			}
 			break;
-			case 'motor26_pwm':
-			case 'motor33_pwm':
-				pin = parseInt(variable.name.substr(-6, 2));
-				pat = new RegExp(variable.name + "\\s*=\\s*PWM.new\\(" + pin + ",\\s*ch=" + (pin % 2) + "\\)");
-				if(pat.test(code)){
-					block = this._createBlock('kani_motor_speed_init_n', 'statement', {
-						fields: {
-							ch: {
-								name: 'ch',
-								id: variable.id,
-								value: pin,
-								variableType: '',
-							}
+		case 'motor26_pwm':
+		case 'motor33_pwm':
+			pin = parseInt(variable.name.substr(-6, 2));
+			pat = new RegExp(variable.name + "\\s*=\\s*PWM.new\\(" + pin + ",\\s*ch=" + (pin % 2) + "\\)");
+			if(pat.test(code)){
+				block = this._createBlock('kani_motor_speed_init_n', 'statement', {
+					fields: {
+						ch: {
+							name: 'ch',
+							id: variable.id,
+							value: pin,
+							variableType: '',
 						}
-					});
-				}
-				break;
+					}
+				});
+			}
+			break;
+		case 'lightsensor36':
+		case 'lightsensor34':
+		case 'lightsensor35':
+		case 'lightsensor2':
+			pin = parseInt(variable.name.substring(11, 13));
+			pat = new RegExp(variable.name + "\\s*=\\s*ADC.new\\(" + pin + ",\\s*ADC::ATTEN_11DB,\\s*ADC::WIDTH_12BIT\\)");
+			if(pat.test(code)){
+				block = this._createBlock('kani_lux_init_n', 'statement', {
+					fields: {
+						number: {
+							name: 'number',
+							id: variable.id,
+							value: pin,
+							variableType: '',
+						}
+					}
+				});
+			}
+			break;
 		default:
 			console.log("in default");
 			break;
