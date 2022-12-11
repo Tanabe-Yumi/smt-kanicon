@@ -165,7 +165,7 @@ const KaniBlocksConverter = {
 			break;
 		case 'motor25':
 		case 'motor32':
-			pin = parseInt(variable.name.substr(-2));
+			pin = parseInt(variable.name.substring(variable.name.length - 2, variable.name.length));
 			pat = new RegExp(variable.name + "\\s*=\\s*GPIO.new\\(" + pin + ",\\s*GPIO::OUT\\)");
 			if(pat.test(code)){
 				block = this._createBlock('kani_motor_init_n', 'statement', {
@@ -182,7 +182,7 @@ const KaniBlocksConverter = {
 			break;
 		case 'motor26_pwm':
 		case 'motor33_pwm':
-			pin = parseInt(variable.name.substr(-6, 2));
+			pin = parseInt(variable.name.substring(variable.name.length - 6, variable.name.length - 4));
 			pat = new RegExp(variable.name + "\\s*=\\s*PWM.new\\(" + pin + ",\\s*ch=" + (pin % 2) + "\\)");
 			if(pat.test(code)){
 				block = this._createBlock('kani_motor_speed_init_n', 'statement', {
@@ -218,7 +218,7 @@ const KaniBlocksConverter = {
 			break;
 		case 'servo27':
 		case 'servo14':
-			pin = parseInt(variable.name.substring(5, 7));
+			pin = parseInt(variable.name.substring(variable.name.length - 2, variable.name.length));
 			pat = new RegExp(variable.name + "\\s*=\\s*PWM.new\\(" + pin + ",\\s*ch=" + ((pin % 2) + 2) + "\\)");
 			if(pat.test(code)){
 				block = this._createBlock('kani_servo_init_n', 'statement', {
