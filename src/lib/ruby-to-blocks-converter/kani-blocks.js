@@ -12,6 +12,14 @@ const matchField = (field) => {
 		return 'motor26_pwm';
 	if(/motor33_pwm/.test(field))
 		return 'motor33_pwm';
+	if(/lightsensor36/.test(field))
+		return 'lightsensor36';
+	if(/lightsensor34/.test(field))
+		return 'lightsensor34';
+	if(/lightsensor35/.test(field))
+		return 'lightsensor35';
+	if(/lightsensor2/.test(field))
+		return 'lightsensor2';
 }
 /**
 * Kani Blocks Ruby converter
@@ -95,6 +103,23 @@ const KaniBlocksConverter = {
 				}
 			});
 			this._addTextInput(block, 'speed', this._isNumber(args[0]) ? args[0].toString() : args[0], '500');
+			break;
+		case 'lightsensor36':
+		case 'lightsensor34':
+		case 'lightsensor35':
+		case 'lightsensor2':
+			if(name != "rawread")
+				break;
+			block = this._createBlock('kani_lux_get_n', 'value', {
+				fields: {
+					number: {
+						name: 'number',
+						id: variable.id,
+						value: parseInt(field.substring(11, field.length)),
+						variableType: '',
+					}
+				}
+			});
 			break;
 		}
 		
@@ -206,4 +231,3 @@ const KaniBlocksConverter = {
 };
 
 export default KaniBlocksConverter;
-
