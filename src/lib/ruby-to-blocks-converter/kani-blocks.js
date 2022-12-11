@@ -206,6 +206,23 @@ const KaniBlocksConverter = {
 				});
 			}
 			break;
+		case 'servo27':
+		case 'servo14':
+			pin = parseInt(variable.name.substring(5, 7));
+			pat = new RegExp(variable.name + "\\s*=\\s*PWM.new\\(" + pin + ",\\s*ch=" + ((pin % 2) + 2) + "\\)");
+			if(pat.test(code)){
+				block = this._createBlock('kani_servo_init_n', 'statement', {
+					fields: {
+						number: {
+							name: 'number',
+							id: variable.id,
+							value: pin,
+							variableType: '',
+						}
+					}
+				});
+			}
+			break;
 		default:
 			console.log("in default");
 			break;
