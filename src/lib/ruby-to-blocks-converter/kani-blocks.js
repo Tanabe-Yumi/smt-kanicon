@@ -12,14 +12,14 @@ const matchField = (field) => {
 		return 'motor26_pwm';
 	if(/motor33_pwm/.test(field))
 		return 'motor33_pwm';
-	if(/lightsensor36/.test(field))
-		return 'lightsensor36';
-	if(/lightsensor34/.test(field))
-		return 'lightsensor34';
-	if(/lightsensor35/.test(field))
-		return 'lightsensor35';
-	if(/lightsensor2/.test(field))
-		return 'lightsensor2';
+	if(/lux36/.test(field))
+		return 'lux36';
+	if(/lux34/.test(field))
+		return 'lux34';
+	if(/lux35/.test(field))
+		return 'lux35';
+	if(/lux2/.test(field))
+		return 'lux2';
 	if(/servo27/.test(field))
 		return 'servo27';
 	if(/servo14/.test(field))
@@ -93,10 +93,10 @@ const KaniBlocksConverter = {
 			});
 			this._addTextInput(block, 'speed', this._isNumber(args[0]) ? args[0].toString() : args[0], '500');
 			break;
-		case 'lightsensor36':
-		case 'lightsensor34':
-		case 'lightsensor35':
-		case 'lightsensor2':
+		case 'lux36':
+		case 'lux34':
+		case 'lux35':
+		case 'lux2':
 			if(name != "rawread")
 				break;
 			block = this._createBlock('kani_lux_get_n', 'value', {
@@ -104,7 +104,7 @@ const KaniBlocksConverter = {
 					number: {
 						name: 'number',
 						id: variable.id,
-						value: parseInt(field.substring(11, field.length)),
+						value: parseInt(field.substring(3, field.length)),
 						variableType: '',
 					}
 				}
@@ -197,11 +197,11 @@ const KaniBlocksConverter = {
 				});
 			}
 			break;
-		case 'lightsensor36':
-		case 'lightsensor34':
-		case 'lightsensor35':
-		case 'lightsensor2':
-			pin = parseInt(variable.name.substring(11, 13));
+		case 'lux36':
+		case 'lux34':
+		case 'lux35':
+		case 'lux2':
+			pin = parseInt(variable.name.substring(3, variable.name.length));
 			pat = new RegExp(variable.name + "\\s*=\\s*ADC.new\\(" + pin + ",\\s*ADC::ATTEN_11DB,\\s*ADC::WIDTH_12BIT\\)");
 			if(pat.test(code)){
 				block = this._createBlock('kani_lux_init_n', 'statement', {
