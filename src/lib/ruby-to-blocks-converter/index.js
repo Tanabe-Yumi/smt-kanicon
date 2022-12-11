@@ -400,11 +400,7 @@ class RubyToBlocksConverter {
     }
 
     _createTextBlock (value) {
-        // console.log("_createTextBlock");
         if (this._isString(value)) {
-            // console.log("_createTextBlock: " + value.toString());
-            // const b = this._createFieldBlock('text', 'TEXT', value.toString());
-            // console.dir(b);
             return this._createFieldBlock('text', 'TEXT', value.toString());
         }
         return value;
@@ -424,10 +420,7 @@ class RubyToBlocksConverter {
     }
 
     _createRubyStatementBlock (statement) {
-        // console.log("_createRubyStatementBlock: " + statement);
         const block = this._createBlock('ruby_statement', 'statement');
-        // console.log("_createRubyStatementBlock: ");
-        // console.dir(block);	// valueはない
         this._addInput(block, 'STATEMENT', this._createTextBlock(statement));
         return block;
     }
@@ -443,9 +436,6 @@ class RubyToBlocksConverter {
     }
 
     _addInput (block, name, inputBlock, shadowBlock) {
-    // console.log("inputBlock: ");
-    // console.dir(inputBlock);
-    // console.log("shadowBlock: " + shadowBlock);
         if (!name) {
             name = inputBlock.id;
         }
@@ -462,8 +452,6 @@ class RubyToBlocksConverter {
             block: inputBlock.id,
             shadow: inputBlock.shadow ? inputBlock.id : shadowBlockId
         };
-        // console.log("_addInput - last");
-        // console.dir(block);
     }
 
     _addNumberInput (block, name, opcode, inputValue, shadowValue) {
@@ -475,14 +463,8 @@ class RubyToBlocksConverter {
     }
 
     _addTextInput (block, name, inputValue, shadowValue) {
-        // console.log("in _addTextInput");
-        // console.dir(block);
-        // console.log("name: " + name);
-        // console.dir(inputValue);
-        // console.dir(shadowValue);
         let shadowBlock;
         if (!this._isString(inputValue)) {
-            // console.log("in _addTextInput - if");
             shadowBlock = this._createTextBlock(shadowValue);
         }
         this._addInput(block, name, this._createTextBlock(inputValue), shadowBlock);
@@ -614,13 +596,10 @@ class RubyToBlocksConverter {
     }
 
     _getSource (node) {
-    	console.log("_getSource: ");
-    	console.dir(node);
-        const expression = node.$loc().$expression();	// コメントアウトでエラーメッセージ
+        const expression = node.$loc().$expression();
         if (expression === Opal.nil) {
             return '';
         }
-        console.log(expression.$source().toString());
         return expression.$source().toString();
     }
 
@@ -820,9 +799,6 @@ class RubyToBlocksConverter {
 
     _onSend (node, rubyBlockArgsNode, rubyBlockNode) {
         const saved = this._saveContext();
-
-        // console.log("in onsend()");
-        // console.dir(node.children[1]);
 
         let receiver = this._process(node.children[0]);
         if (_.isArray(receiver) && receiver.length === 1) {

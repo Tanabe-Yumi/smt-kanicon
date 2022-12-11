@@ -7,7 +7,6 @@ import _ from 'lodash';
 const OperatorsConverter = {
     // eslint-disable-next-line no-unused-vars
     onSend: function (receiver, name, args, rubyBlockArgs, rubyBlock) {
-    	console.log("in onsend - operator");
         let block;
         if (this._isSelf(receiver) || receiver === Opal.nil) {
             switch (name) {
@@ -135,8 +134,6 @@ const OperatorsConverter = {
         case 'abs':
         case 'floor':
         case 'ceil':
-        	console.log("abs");
-        	console.dir(receiver);
             if (args.length === 0 && this._isNumberOrBlock(receiver)) {
                 let operator = name;
                 if (name === 'ceil') {
@@ -200,7 +197,6 @@ const OperatorsConverter = {
 
     // eslint-disable-next-line no-unused-vars
     onAnd: function (operands) {
-    	console.log("in onand - operator");
         const block = this._createBlock('operator_and', 'value_boolean');
         operands.forEach(o => {
             if (o) {
@@ -218,7 +214,6 @@ const OperatorsConverter = {
 
     // eslint-disable-next-line no-unused-vars
     onOr: function (operands) {
-    	console.log("in onor - operator");
         const block = this._createBlock('operator_or', 'value_boolean');
         operands.forEach(o => {
             if (o) {
