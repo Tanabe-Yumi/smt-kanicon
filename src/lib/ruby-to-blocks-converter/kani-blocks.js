@@ -218,7 +218,7 @@ const KaniBlocksConverter = {
 			break;
 		case 'servo27':
 		case 'servo14':
-			pin = parseInt(variable.name.substring(5, 7));
+			pin = parseInt(variable.name.substring(variable.name.length - 2, variable.name.length));
 			pat = new RegExp(variable.name + "\\s*=\\s*PWM.new\\(" + pin + ",\\s*ch=" + ((pin % 2) + 2) + "\\)");
 			if(pat.test(code)){
 				block = this._createBlock('kani_servo_init_n', 'statement', {
