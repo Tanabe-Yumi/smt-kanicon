@@ -127,19 +127,34 @@ const KaniBlocksConverter = {
 			break;
 		case 'servo27':
 		case 'servo14':
-			if(name != 'freq')
-				break;
-			block = this._createBlock('kani_servo_freq_n', 'statement', {
-				fields: {
-					number: {
-						name: 'number',
-						id: variable.id,
-						value: parseInt(field.substring(field.length - 2, field.length)),
-						variableType: '',
+			switch(name){
+			case 'freq':
+				block = this._createBlock('kani_servo_freq_n', 'statement', {
+					fields: {
+						number: {
+							name: 'number',
+							id: variable.id,
+							value: parseInt(field.substring(field.length - 2, field.length)),
+							variableType: '',
+						}
 					}
-				}
-			});
-			this._addTextInput(block, 'freq', this._isNumber(args[0]) ? args[0].toString() : args[0], '50');
+				});
+				this._addTextInput(block, 'freq', this._isNumber(args[0]) ? args[0].toString() : args[0], '50');
+				break;
+			case 'duty':
+				block = this._createBlock('kani_servo_duty_n', 'statement', {
+					fields: {
+						number: {
+							name: 'number',
+							id: variable.id,
+							value: parseInt(field.substring(field.length - 2, field.length)),
+							variableType: '',
+						}
+					}
+				});
+				this._addTextInput(block, 'duty', this._isNumber(args[0]) ? args[0].toString() : args[0], '0');
+				break;
+			}
 			break;
 		}
 		
