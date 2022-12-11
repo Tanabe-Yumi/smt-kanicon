@@ -1502,7 +1502,7 @@ const kaniRobotNormal = function() {
 		</block>
 		
 		<block type="kani_motor_direct_n">
-			<value name="pin">
+			<value name="ch">
 				<shadow type="math_number">
 					<field name="NUM"></field>
 				</shadow>

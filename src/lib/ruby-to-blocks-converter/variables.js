@@ -7,7 +7,6 @@ import _ from 'lodash';
 const VariablesConverter = {
     // eslint-disable-next-line no-unused-vars
     onSend: function (receiver, name, args, rubyBlockArgs, rubyBlock) {
-    	console.log("in onsend - variable");
         let block;
         if (this._isSelf(receiver) || receiver === Opal.nil) {
             switch (name) {
@@ -146,7 +145,6 @@ const VariablesConverter = {
 
     // eslint-disable-next-line no-unused-vars
     onOpAsgn: function (lh, operator, rh) {
-        console.log("in onopasgn - variable");
         let block;
         if (operator === '+' && this._isString(lh) && this._isNumberOrBlock(rh)) {
             const variable = this._lookupOrCreateVariable(lh);
@@ -169,7 +167,6 @@ const VariablesConverter = {
 
     // eslint-disable-next-line no-unused-vars
     onVar: function (scope, variable) {
-        console.log("in onvar - variable");
         if (scope === 'global' || scope === 'instance') {
             return this._createBlock('data_variable', 'value_variable', {
                 fields: {
@@ -187,7 +184,6 @@ const VariablesConverter = {
 
     // eslint-disable-next-line no-unused-vars
     onVasgn: function (scope, variable, rh) {
-    	console.log("in onvasgn - variable");
         if (scope === 'global' || scope === 'instance') {
             if (this._isNumberOrBlock(rh) || this._isStringOrBlock(rh)) {
                 const block = this._createBlock('data_setvariableto', 'statement', {
