@@ -24,6 +24,13 @@ const matchField = (field) => {
 		return 'servo27';
 	if(/servo14/.test(field))
 		return 'servo14';
+	let regexp = /(\d+).*to_f.*-.*90\).*\*.*0\.95.*\/.*90.*\+.*1\.45\).*\/.*20.*\*.*1024\)/s;
+	if(regexp.test(field)){
+		let res = regexp.exec(field);
+		// console.log("res[1]: " + res[1]);
+
+		return parseInt(res[1]);
+	}
 }
 /**
 * Kani Blocks Ruby converter
@@ -33,13 +40,13 @@ const KaniBlocksConverter = {
 	onSend: function (receiver, name, args, rubyBlockArgs, rubyBlock, variable) {
 		console.log("in onsend - kani");
 		console.log("name: " + name);
-		// console.log("args: ");
-		// console.dir(args);
-		// console.log("receiver: ");
-		// console.dir(receiver);
-		// console.log("rubyblockargs: " + rubyBlockArgs);
-		// console.log("rubyblock: " + rubyBlock);
-		// console.dir(variable);
+		console.log("args: ");
+		console.dir(args);
+		console.log("receiver: ");
+		console.dir(receiver);
+		console.log("rubyblockargs: " + rubyBlockArgs);
+		console.log("rubyblock: " + rubyBlock);
+		console.dir(variable);
 		
 		let block;
 		//if ((this._isSelf(receiver) || receiver === Opal.nil) && !rubyBlock) {
@@ -156,6 +163,12 @@ const KaniBlocksConverter = {
 				break;
 			}
 			break;
+		default:
+			if(name != 'to_i' || !this._isNumber(field))
+				break;
+			block = this._createBlock('kani_servo_deg_calc_n', 'value');
+			this._addTextInput(block, 'degree', field.toString(), '0');
+			break;
 		}
 		
 		return block;
@@ -168,11 +181,11 @@ const KaniBlocksConverter = {
 	},
 	onVasgn: function (scope, variable, rh, code) {
 		console.log("in onvasgn - kani");
-		// console.log("scope: " + scope);
-		// console.log("variable: ");
-		// console.dir(variable);
-		// console.log("rh: ");
-		// console.dir(rh);
+		console.log("scope: " + scope);
+		console.log("variable: ");
+		console.dir(variable);
+		console.log("rh: ");
+		console.dir(rh);
 		
 		let block;
 		let pat, pin;
