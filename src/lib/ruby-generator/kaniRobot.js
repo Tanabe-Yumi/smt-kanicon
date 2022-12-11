@@ -43,13 +43,13 @@ export default function (Generator) {
 	Generator.kani_lux_init_e = function (block) {
 		const num = Generator.getFieldValue(block,'number') || null;
 		
-		return `lightsensor${num} = ADC.new(${num}, ADC::ATTEN_11DB, ADC::WIDTH_12BIT)\n\n`;
+		return `lux${num} = ADC.new(${num}, ADC::ATTEN_11DB, ADC::WIDTH_12BIT)\n\n`;
 	};
 	
 	Generator.kani_lux_get_e = function (block) {
 		const num = Generator.getFieldValue(block,'number') || null;
 		
-		return [`lightsensor${num}.rawread`, Generator.ORDER_ATOMIC];
+		return [`lux${num}.rawread`, Generator.ORDER_ATOMIC];
 	};
 	
 	Generator.kani_servo_init_e = function (block) {
@@ -114,14 +114,14 @@ export default function (Generator) {
 	Generator.kani_lux_init_n = function (block) {
 		const pin = Generator.getFieldValue(block,'number') || null;
 		
-		return `lightsensor${pin} = ADC.new(${pin}, ADC::ATTEN_11DB, ADC::WIDTH_12BIT)\n`;
+		return `lux${pin} = ADC.new(${pin}, ADC::ATTEN_11DB, ADC::WIDTH_12BIT)\n`;
 	};
 	
 	Generator.kani_lux_get_n = function (block) {
 		const pin = Generator.getFieldValue(block, 'number') || null;
 		
-		return [`lightsensor${pin}.rawread`, Generator.ORDER_ATOMIC];
-		// return [`lightsensor${num}.read`, Generator.ORDER_ATOMIC];
+		return [`lux${pin}.rawread`, Generator.ORDER_ATOMIC];
+		// return [`lux${num}.read`, Generator.ORDER_ATOMIC];
 	};
 	
 	Generator.kani_servo_init_n = function (block) {
