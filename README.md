@@ -11,8 +11,8 @@ $ npm start
 
 ## Reference
 `smalruby3-gui-smt/`
+  * SmT（マイコン制御できるSmalruby）
   * https://github.com/gfd-dennou-club/smalruby3-gui-smt
-  * ブロックの定義など
 
 `scratch-vm/`
   * https://github.com/gfd-dennou-club/scratch-vm-smt
