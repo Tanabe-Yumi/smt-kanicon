@@ -18,8 +18,9 @@ const base = {
     devServer: {
         contentBase: path.resolve(__dirname, 'build'),
         host: '0.0.0.0',
-        port: process.env.PORT || 8601,
-	disableHostCheck: true,
+        disableHostCheck: true,
+        hot: true,
+        port: process.env.PORT || 8601
     },
     output: {
         library: 'GUI',
