@@ -38,7 +38,6 @@ const matchField = (field) => {
 const KaniBlocksConverter = {
 // eslint-disable-next-line no-unused-vars
 	onSend: function (receiver, name, args, rubyBlockArgs, rubyBlock, variable) {
-		console.log("in onsend")
 		let block;
 		//if ((this._isSelf(receiver) || receiver === Opal.nil) && !rubyBlock) {}
 		let field = matchField(variable.name);
@@ -152,14 +151,7 @@ const KaniBlocksConverter = {
 		
 		return block;
 	},
-	onOpAsgn: function (lh, operator, rh) {
-		console.log("in onopasgn")
-	},
-	onVar: function (scope, variable) {
-		console.log("in onvar")
-	},
 	onVasgn: function (scope, variable, rh, code) {
-		console.log("in onvasgn")
 		let block;
 		let pat, pin;
 		switch (variable.name) {
@@ -242,21 +234,13 @@ const KaniBlocksConverter = {
 		}
 		return block;
 	},
-	onAnd: function (operands) {
-		console.log("in onand")
-	},
-	onOr: function (operands) {
-		console.log("in onor")
-	},
-	onUntil: function (cond, statement) {
-		console.log("in onuntil")
-	},
-	onIf: function (cond, statement, elseStatement) {
-		console.log("in onif")
-	},
-	onDefs: function (node, saved) {
-		console.log("in ondefs")
-	},
+	// onOpAsgn: function (lh, operator, rh) {},
+	// onVar: function (scope, variable) {},
+	// onAnd: function (operands) {},
+	// onOr: function (operands) {},
+	// onUntil: function (cond, statement) {},
+	// onIf: function (cond, statement, elseStatement) {},
+	// onDefs: function (node, saved) {},
 };
 
 export default KaniBlocksConverter;
