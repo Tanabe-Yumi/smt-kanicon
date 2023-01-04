@@ -40,7 +40,6 @@ const ControlConverter = {
                 break;
             case 'loop':
             case 'forever':
-                console.log("in case loop");
                 if (args.length === 0 && rubyBlockArgs && rubyBlockArgs.length === 0 && rubyBlock) {
                     rubyBlock = this._removeWaitBlocks(rubyBlock);
                     block = this._createBlock('control_forever', 'terminate');
@@ -96,7 +95,6 @@ const ControlConverter = {
     },
 
     onIf: function (cond, statement, elseStatement) {
-        console.log("in onif");
         const block = this._createBlock('control_if', 'statement');
         if (!this._isFalse(cond)) {
             this._addInput(block, 'CONDITION', cond);
@@ -108,16 +106,6 @@ const ControlConverter = {
         }
         return block;
     },
-
-    onOpAsgn: function (lh, operator, rh) {
-		console.log("in onopasgn")
-	},
-    onVar: function (scope, variable) {
-		console.log("in onvar")
-	},
-    onDefs: function (node, saved) {
-		console.log("in ondefs")
-	},
 
     onUntil: function (cond, statement) {
         statement = this._removeWaitBlocks(statement);
