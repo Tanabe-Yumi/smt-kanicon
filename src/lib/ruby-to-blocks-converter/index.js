@@ -611,6 +611,42 @@ class RubyToBlocksConverter {
         return b;
     }
 
+    _removeWaitBlocks (block) {
+        if (!block || block === Opal.nil) {
+            return null;
+        }
+
+        let firstBlock = null;
+        let b = block;
+        let prev = b.parent;
+        while (b) {
+            let isWaitBlock = false;
+            if (b.opcode === 'ruby_statement') {
+                const textBlock = this._context.blocks[b.inputs.STATEMENT.block];
+                if (textBlock.fields.TEXT.value === 'wait') {
+                    isWaitBlock = true;
+                }
+            }
+            if (isWaitBlock) {
+                delete this._context.blocks[b.id];
+                if (prev) {
+                    this._context.blocks[prev].next = null;
+                }
+            } else {
+                if (firstBlock === null) {
+                    firstBlock = b;
+                }
+                b.parent = prev;
+                if (prev) {
+                    this._context.blocks[prev].next = b.id;
+                }
+                prev = b.id;
+            }
+            b = this._context.blocks[b.next];
+        }
+        return firstBlock;
+    }
+
     _popWaitBlock (block) {
         if (!block) {
             return null;
