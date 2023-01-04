@@ -55,7 +55,7 @@ export default function (Generator) {
 	Generator.kani_servo_init_e = function (block) {
 		const num = Generator.getFieldValue(block,'number') || null;
 		
-		return `servo${num} = PWM.new(${num}, ch=${num % 2})\n` + 
+		return `servo${num} = PWM.new(${num}, ch=${(num % 2) + 2})\n` + 
 			`servo${num}.freq(50)\n` + 
 			`servo${num}.duty(0)\n\n`;
 	};

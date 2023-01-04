@@ -81,11 +81,13 @@ class RubyToBlocksConverter {
     }
 
     targetCodeToBlocks (target, code) {
+        console.log("in targetCodeToBlocks");
         this.reset();
         this._setTarget(target);
         this._loadVariables(target);
         try {
             const root = RubyParser.$parse(code);
+            console.dir(root);
             let blocks = this._process(root);
             if (blocks === null || blocks === Opal.nil) {
                 return true;
@@ -93,15 +95,19 @@ class RubyToBlocksConverter {
             if (!_.isArray(blocks)) {
                 blocks = [blocks];
             }
+            console.dir(blocks);
             blocks.forEach(block => {
                 if (this._isBlock(block)) {
+                    console.log("in isBlock");
                     block.topLevel = true;
                 } else if (block instanceof Primitive) {
+                    console.log("in else if");
                     throw new RubyToBlocksConverterError(
                         block.node,
                         `could not convert primitive: ${this._getSource(block.node)}`
                     );
                 } else {
+                    console.log("in else");
                     throw new Error(`invalid block: ${block}`);
                 }
             });
@@ -112,6 +118,7 @@ class RubyToBlocksConverter {
                 const loc = e.$diagnostic().$location();
                 error = this._toErrorAnnotation(loc.$line(), loc.$column(), e.$message());
             } else if (e instanceof RubyToBlocksConverterError) {
+                console.log("in RubyToBlocksConverterError");
                 const loc = e.node.$loc();
                 error = this._toErrorAnnotation(loc.$line(), loc.$column(), e.message);
             } else if (this._context.currentNode) {
