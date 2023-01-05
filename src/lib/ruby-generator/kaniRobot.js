@@ -105,8 +105,8 @@ export default function (Generator) {
 		
 		if(speed < 0)
 			speed = 0;
-		else if(speed >= 512)
-			speed = 511;
+		else if(speed >= 1024)
+			speed = 1023;
 		
 		return `motor${pin}_pwm.duty(${speed})\n`;
 	};
