@@ -29,7 +29,7 @@ export default function (Generator) {
 		const side = Generator.getFieldValue(block, 'side') || null;
 		const direction = Generator.getFieldValue(block, 'direction') || null;
 		
-		return `m${side}_pwm.duty(500)\n` + 
+		return `m${side}_pwm.duty(1000)\n` + 
 			`m${side}.${direction}()\n` + 
 			`sleep(0.01)\n`;
 	};
